@@ -66,7 +66,6 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _productCodeTEController,
-                  keyboardType: TextInputType.number,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: const InputDecoration(
                     hintText: 'Product Code',

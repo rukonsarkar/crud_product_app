@@ -51,7 +51,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _productCodeTEController,
-                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     hintText: 'Product Code',
                     labelText: 'Product Code',
