@@ -1,21 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 
-class AddProductScreen extends StatefulWidget {
-  const AddProductScreen({super.key});
+class UpdateProductScreen extends StatefulWidget {
+  const UpdateProductScreen({super.key});
 
   @override
-  State<AddProductScreen> createState() => _AddProductScreenState();
+  State<UpdateProductScreen> createState() => _UpdateProductScreenState();
 }
 
-class _AddProductScreenState extends State<AddProductScreen> {
+class _UpdateProductScreenState extends State<UpdateProductScreen> {
   final TextEditingController _nameTEController = TextEditingController();
   final TextEditingController _unitPriceTEController = TextEditingController();
   final TextEditingController _quantityTEController = TextEditingController();
   final TextEditingController _totalPriceTEController = TextEditingController();
-  final TextEditingController _productCodeTEController = TextEditingController();
   final TextEditingController _imageTEController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -24,7 +20,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add product'),
+        title: const Text('Update product'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -43,22 +39,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   validator: (String? value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Write your product name';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _productCodeTEController,
-                  keyboardType: TextInputType.number,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: const InputDecoration(
-                    hintText: 'Product Code',
-                    labelText: 'Product Code',
-                  ),
-                  validator: (String? value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Write your product code';
                     }
                     return null;
                   },
@@ -127,48 +107,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   },
                 ),
                 const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _addProduct();
-                    }
-                  },
-                  child: const Text(
-                    'Add',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                ),
+                ElevatedButton(onPressed: () {
+                  if(_formKey.currentState!.validate()){
+
+                  }
+                }, child: const Text('Update', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  Future<void> _addProduct() async {
-    const String addNewProductUrl =
-        'https://crud.teamrabbil.com/api/v1/CreateProduct';
-
-    Map<String, dynamic> inputData = {
-      "Ing": _imageTEController.text.trim(),
-      "ProductCode": _productCodeTEController.text,
-      "ProductName": _nameTEController.text,
-      "Qty": _quantityTEController.text,
-      "TotalPrice": _totalPriceTEController.text,
-      "UnitPrice": _unitPriceTEController.text
-    };
-
-    Uri uri = Uri.parse(addNewProductUrl);
-    Response response = await post(
-      uri,
-      body: jsonEncode(inputData),
-      headers: {'content-type' : 'application/json'},
-    );
-
-    print(response.statusCode);
-    print(response.body);
-    print(response.headers);
   }
 
   @override
